@@ -18,6 +18,16 @@ public class LivroFisico extends Livro{
 
         }
     }
+@Override
+public void reservar(){
+    if(reservado == false){
+        System.out.println("O livro foi reservado!");
+        reservado = true;
+    } else{
+        System.out.println("O livro ja foi reservado!");
+    }
+}
+
     @Override
     public void cancelarReserva(){
         if (reservado == true){

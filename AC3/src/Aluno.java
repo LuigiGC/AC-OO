@@ -23,12 +23,4 @@ public class Aluno {
         System.out.println(aluno1.nome + aluno1.matricula + aluno1.curso);
     }
 
-
-
-
-
-
-
-
-
 }

@@ -24,9 +24,9 @@ public class Pessoa {
     @Override
     public String toString() {
         return this.nome + "\n'" +
-            ", cpf: '" + this.cpf + "\n" +
-            ", endereco: '" + this.endereco + "\n" +
-            ", Data de Nascimento='" + this.getDataNascimento();
+            "cpf: '" + this.cpf + "\n" +
+            "endereco: '" + this.endereco + "\n" +
+            "Data de Nascimento='" + this.getDataNascimento();
     }
 
 }

@@ -1,5 +1,5 @@
 package entidades.salas;
 
-public class Consultorio {
+public class Consultorio extends Sala {
     
 }

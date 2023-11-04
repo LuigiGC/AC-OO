@@ -1,5 +1,8 @@
 package Alunos;
 
+import java.util.Collection;
+import java.util.Objects;
+
 public class Aluno {
 
     private String matricula;
@@ -36,5 +39,20 @@ public class Aluno {
         this.nome + " - " +
         this.curso; 
     }
-    
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj == this)
+            return true;
+        if (!(obj instanceof Aluno)) {
+            return false;
+        }
+        Aluno aluno = (Aluno) obj;
+        return aluno.matricula.equals(this.matricula);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(matricula, nome);
+    }
 }

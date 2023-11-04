@@ -1,3 +1,5 @@
+import java.io.File;
+
 import Alunos.AlunoDAO;
 
 public class App {
@@ -19,5 +21,7 @@ public class App {
         alunos.AtualizarCurso("202304419108", "Engenheria de software");
         System.out.println(alunos);
 
+        File arquivo = new File("C:/Users/luigi/POO/AC6/src/Arquivo");
+        arquivo.createNewFile();
     }
 }

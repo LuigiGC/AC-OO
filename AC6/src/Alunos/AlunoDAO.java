@@ -1,9 +1,18 @@
 package Alunos;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
+
+import Alunos.Aluno;
+import Arquivo.Arquivo;
 
 public class AlunoDAO {
-
-   
+    String caminho;
     HashMap <String, Aluno> alunos;
     
     public AlunoDAO(){
@@ -32,6 +41,31 @@ public class AlunoDAO {
     public Aluno buscarAluno(String matricula){
         return alunos.get(matricula);
     }
+
+    public List<Aluno> listar() {
+        return Collections.unmodifiableList(this.listaAlunos);
+    }
+
+    public void exportar() throws IOException {
+        List<String> linhas = new ArrayList<>();
+
+        for (Aluno alunos : this.listar()) {
+            linhas.add(listaAlunos.toString());
+        }
+
+        Arquivo.escrever(this.caminho, linhas);
+    }
+
+    public void importar() throws IOException {
+        List<String> linhas = Arquivo.ler(this.caminho);
+    }
+
+    
+
+    //Collection<String> values = alunos.values();
+    Collection<Aluno> listaAlunos = alunos.values().stream().collect(Collectors.toCollection(ArrayList::new));
+
+
 
     
     @Override

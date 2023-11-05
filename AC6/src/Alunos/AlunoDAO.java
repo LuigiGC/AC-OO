@@ -1,56 +1,63 @@
 package Alunos;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 
-import Alunos.Aluno;
+
 import Arquivo.Arquivo;
 
 public class AlunoDAO {
     String caminho;
-    HashMap <String, Aluno> alunos;
+    ArrayList<Aluno> alunos = new ArrayList<>();
     
-    public AlunoDAO(){
-        alunos = new HashMap<>();
+    public AlunoDAO(String caminho)throws IOException{
+        this.caminho = caminho;
+        this.importar();  
     }
 
-    public void adcionarAluno(String matricula, String nome, String curso){
-        Aluno aluno = new Aluno(matricula,nome,curso);
-        alunos.put(matricula,aluno);
+    public void adcionarAluno(String[] dadosAlunos){
+        Aluno aluno = new Aluno(dadosAlunos[0],dadosAlunos[1],dadosAlunos[2]);
+        if (!this.alunos.contains(aluno)) {
+            this.alunos.add(aluno);
+        }
         
     }
     public void removerAluno(String matricula){
-        alunos.remove(matricula);
-    }
-
-    public void AtualizarCurso(String matricula,String novoCurso){
-        if (alunos.containsKey(matricula)){
-            Aluno aluno = alunos.get(matricula);
-            aluno.setCurso(novoCurso);
-
-        }else{
-            System.out.println("Aluno não cadastrado!");
+        Aluno aluno = new Aluno(matricula);
+        if (this.alunos.contains(aluno)){
+            this.alunos.remove(aluno);
         }
     }
 
-    public Aluno buscarAluno(String matricula){
-        return alunos.get(matricula);
+    public void AtualizarCurso(String[] dadosAlunos){
+        Aluno aluno = new Aluno(dadosAlunos[0],dadosAlunos[1],dadosAlunos[2]);
+        int posicao = this.alunos.indexOf(aluno);
+        this.alunos.set(posicao, aluno);
+        
+
     }
 
+    public Aluno buscarAluno(String matricula){
+        Aluno encontrarAluno = new Aluno(matricula);
+        for(Aluno aluno : this.alunos){
+            if (aluno.equals(encontrarAluno)){
+                return aluno;
+            }
+        }
+        return null;
+    }
+
+
     public List<Aluno> listar() {
-        return Collections.unmodifiableList(this.listaAlunos);
+        return Collections.unmodifiableList(this.alunos);
     }
 
     public void exportar() throws IOException {
         List<String> linhas = new ArrayList<>();
 
         for (Aluno alunos : this.listar()) {
-            linhas.add(listaAlunos.toString());
+            linhas.add(alunos.toString());
         }
 
         Arquivo.escrever(this.caminho, linhas);
@@ -58,22 +65,19 @@ public class AlunoDAO {
 
     public void importar() throws IOException {
         List<String> linhas = Arquivo.ler(this.caminho);
+
+        for(String linha : linhas){
+            String[] dadosAlunos = linha.split(" - ");
+            this.adcionarAluno(dadosAlunos);
+        }
     }
-
-    
-
-    //Collection<String> values = alunos.values();
-    Collection<Aluno> listaAlunos = alunos.values().stream().collect(Collectors.toCollection(ArrayList::new));
-
-
 
     
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (Aluno aluno : alunos.values()) {
-            sb.append(aluno.toString()).append("\n");
-        }
-        return sb.toString();
+        String msg = "";
+        for (Aluno aluno : this.listar()){
+            msg += aluno + "\n";
+        }return msg;
     }
 }

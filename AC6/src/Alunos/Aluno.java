@@ -1,6 +1,5 @@
 package Alunos;
 
-import java.util.Collection;
 import java.util.Objects;
 
 public class Aluno {
@@ -15,6 +14,13 @@ public class Aluno {
         this.nome = nome;
         this.curso = curso;
 
+    }
+    public Aluno (String matricula, String nome){
+        this.matricula = matricula;
+        this.nome = nome;
+    }
+    public Aluno (String matricula){
+        this.matricula = matricula;
     }
 
     public String getMatricula(){

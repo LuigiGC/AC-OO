@@ -24,7 +24,7 @@ public class LerDados {
         return new String[] {matricula, nome,curso};
     }
 
-    public String[] lerClienteAlteracao(String matricula) {
+    public String[] lerAlteracaoCurso(String matricula) {
         System.out.print("Informe o curso: ");
         String curso = this.lerTexto();
        

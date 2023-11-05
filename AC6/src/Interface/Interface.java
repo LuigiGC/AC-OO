@@ -30,7 +30,7 @@ public class Interface {
                 System.out.print("Digite a matricula do aluno a ser alterado: ");
                 String matriculaAlterar = lerDados.lerTexto();
                 if (ad.buscarAluno(matriculaAlterar) != null) {
-                    ad.AtualizarCurso(lerDados.lerClienteAlteracao(matriculaAlterar));
+                    ad.AtualizarCurso(lerDados.lerAlteracaoCurso(matriculaAlterar));
                 } else {
                     System.out.println("A matricula inserida não foi localizada!");
                 }
